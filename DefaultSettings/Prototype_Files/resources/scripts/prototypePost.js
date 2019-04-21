@@ -12671,7 +12671,7 @@ $axure.internal(function ($ax) {
         return retVal;
 
         function htmlify(text) {
-            return text.replace('</span><span>', '').replace('</p><p>', '\n').replace(/<\/?p[^>]*>/gi, '').replace(/<\/?span[^>]*>/gi, '').replace('<br>', '\t')
+            return text.replace('</span><span>', '').replace('</p><p>', '\n').replace(/<\/?p[^>]*>/gi, '').replace(/<\/?span[^>]*>/gi, '').replace('<br>', '\t').replace('&gt;','>')
         }
         function linkify(text) {
             var urlRegex = /(\b(((https?|ftp|file):\/\/)|(www\.))[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;

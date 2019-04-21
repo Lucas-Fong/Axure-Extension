@@ -612,9 +612,8 @@ function openPreviousPage() {
             });
         }
 
-        function htmlify(text)
-        {
-            return text.replace('</span><span>','').replace('</p><p>','\n').replace(/<\/?p[^>]*>/gi,'').replace(/<\/?span[^>]*>/gi,'').replace('<br>','\t')
+        function htmlify(text) {
+            return text.replace('</span><span>', '').replace('</p><p>', '\n').replace(/<\/?p[^>]*>/gi, '').replace(/<\/?span[^>]*>/gi, '').replace('<br>', '\t').replace('&gt;','>')
         }
     });
 
