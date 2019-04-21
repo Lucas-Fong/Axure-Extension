@@ -12660,9 +12660,9 @@ $axure.internal(function ($ax) {
         var retVal = "";
         for (var noteName in annJson) {
             if (noteName != "label" && noteName != "id") {
-                retVal += "<div class='annotationName markdown'>" + noteName + "</div>";
+                retVal += "<div class='annotationName'>" + noteName + "</div>";
                 if (noteName.indexOf(":Markdown") > 0) {
-                    retVal += "<div class='annotationValue'>" + marked(htmlify(annJson[noteName])) + "</div>";
+                    retVal += "<div class='annotationValue markdown'>" + marked(htmlify(annJson[noteName])) + "</div>";
                 }
                 else
                     retVal += "<div class='annotationValue'>" + linkify(annJson[noteName]) + "</div>";

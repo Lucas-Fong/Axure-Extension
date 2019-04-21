@@ -43,6 +43,10 @@ h5 {
     list-style: 23px;
 }
 
+.markdown {
+    background-color: #fff;
+}
+
 .markdown a {
     color: #0099ff;
     margin: 0;
@@ -70,7 +74,7 @@ h5 {
 }
 
 .markdown p, .markdown ul, .markdown ol {
-    font-size: 16px;
+    font-size: 14px;
     line-height: 24px;
 }
 
@@ -99,9 +103,11 @@ code, pre {
     color: inherit;
 }
 
-code {
+.markdown code {
     font-family: Consolas, Monaco, Andale Mono, monospace;
     margin: 0 2px;
+    color: #666555;
+    font-size: 14px;
 }
 
 pre {
@@ -119,18 +125,14 @@ pre>code {
     margin: 0;
     overflow: initial;
     line-height: inherit;
-    font-size: .85em;
+    font-size: 14px;
     white-space: pre;
     background: 0 0;
 }
 
-code {
-    color: #666555;
-}
-
 /** markdown preview plus 对于代码块的处理有些问题, 所以使用统一的颜色 */
 
-/*code .keyword {
+code .keyword {
   color: #8959a8;
 }
 
@@ -140,7 +142,7 @@ code .number {
 
 code .comment {
   color: #998
-}*/
+}
 
 aside {
     display: block;
@@ -211,52 +213,52 @@ dd {
 
 /* Code below this line is copyright Twitter Inc. */
 
-button, input, select, textarea {
+.markdown button, .markdown input, .markdown select, .markdown textarea {
     font-size: 100%;
     margin: 0;
     vertical-align: baseline;
     *vertical-align: middle;
 }
 
-button, input {
+.markdown button, .markdown input {
     line-height: normal;
     *overflow: visible;
 }
 
-button::-moz-focus-inner, input::-moz-focus-inner {
+.markdown button::-moz-focus-inner, .markdown input::-moz-focus-inner {
     border: 0;
     padding: 0;
 }
 
-button, input[type="button"], input[type="reset"], input[type="submit"] {
+.markdown button, .markdown input[type="button"], .markdown input[type="reset"], .markdown input[type="submit"] {
     cursor: pointer;
     -webkit-appearance: button;
 }
 
-input[type=checkbox], input[type=radio] {
+.markdown input[type=checkbox],.markdown input[type=radio] {
     cursor: pointer;
 }
 
 /* override default chrome & firefox settings */
 
-input:not([type="image"]), textarea {
+.markdown input:not([type="image"]), textarea {
     -webkit-box-sizing: content-box;
     -moz-box-sizing: content-box;
     box-sizing: content-box;
 }
 
-input[type="search"] {
+.markdown input[type="search"] {
     -webkit-appearance: textfield;
     -webkit-box-sizing: content-box;
     -moz-box-sizing: content-box;
     box-sizing: content-box;
 }
 
-input[type="search"]::-webkit-search-decoration {
+.markdown input[type="search"]::-webkit-search-decoration {
     -webkit-appearance: none;
 }
 
-label, input, select, textarea {
+.markdown label, .markdown input, .markdown select, .markdown textarea {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 13px;
     font-weight: normal;
@@ -264,12 +266,12 @@ label, input, select, textarea {
     margin-bottom: 18px;
 }
 
-input[type=checkbox], input[type=radio] {
+.markdown input[type=checkbox],.markdown input[type=radio] {
     cursor: pointer;
     margin-bottom: 0;
 }
 
-input[type=text], input[type=password], textarea, select {
+.markdown input[type=text],.markdown input[type=password], .markdown textarea, .markdown select {
     display: inline-block;
     width: 210px;
     padding: 4px;
@@ -284,26 +286,26 @@ input[type=text], input[type=password], textarea, select {
     border-radius: 3px;
 }
 
-select, input[type=file] {
+.markdown select, .markdown input[type=file] {
     height: 27px;
     line-height: 27px;
 }
 
-textarea {
+.markdown textarea {
     height: auto;
 }
 
 /* grey out placeholders */
-
+/* 
 :-moz-placeholder {
     color: #bfbfbf;
 }
 
 ::-webkit-input-placeholder {
     color: #bfbfbf;
-}
+} */
 
-input[type=text], input[type=password], select, textarea {
+.markdown input[type=text], .markdown input[type=password], .markdown select, .markdown textarea {
     -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
     -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
     transition: border linear 0.2s, box-shadow linear 0.2s;
@@ -312,7 +314,7 @@ input[type=text], input[type=password], select, textarea {
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-input[type=text]:focus, input[type=password]:focus, textarea:focus {
+.markdown input[type=text]:focus, .markdown input[type=password]:focus, .markdown textarea:focus {
     outline: none;
     border-color: rgba(82, 168, 236, 0.8);
     -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
@@ -322,7 +324,7 @@ input[type=text]:focus, input[type=password]:focus, textarea:focus {
 
 /* buttons */
 
-button {
+.markdown button {
     display: inline-block;
     padding: 4px 14px;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -354,41 +356,38 @@ button {
     border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
 }
 
-button:hover {
+.markdown button:hover {
     color: #fff;
     background-position: 0 -15px;
     text-decoration: none;
 }
 
-button:active {
+.markdown button:active {
     -webkit-box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
     -moz-box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
     box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
-button::-moz-focus-inner {
+.markdown button::-moz-focus-inner {
     padding: 0;
     border: 0;
 }
 
-table {
+.markdown table {
     *border-collapse: collapse;
     /* IE7 and lower */
     border-spacing: 0;
     width: 100%;
 }
 
-table {
+.markdown table {
     border: solid #ccc 1px;
-    -moz-border-radius: 6px;
-    -webkit-border-radius: 6px;
-    border-radius: 6px;
     /*-webkit-box-shadow: 0 1px 1px #ccc;
     -moz-box-shadow: 0 1px 1px #ccc;
     box-shadow: 0 1px 1px #ccc;   */
 }
 
-table tr:hover {
+.markdown table tr:hover {
     background: #fbf8e9;
     -o-transition: all 0.1s ease-in-out;
     -webkit-transition: all 0.1s ease-in-out;
@@ -397,14 +396,14 @@ table tr:hover {
     transition: all 0.1s ease-in-out;
 }
 
-table td, .table th {
+.markdown table td,.markdown  .table th {
     border-left: 1px solid #ccc;
     border-top: 1px solid #ccc;
     padding: 10px;
     text-align: left;
 }
 
-table th {
+.markdown table th {
     background-color: #dce9f9;
     background-image: -webkit-gradient(linear, left top, left bottom, from(#ebf3fc), to(#dce9f9));
     background-image: -webkit-linear-gradient(top, #ebf3fc, #dce9f9);
@@ -420,36 +419,6 @@ table th {
     padding: 5px;
 }
 
-table td:first-child, table th:first-child {
+.markdown table td:first-child,.markdown table th:first-child {
     border-left: none;
-}
-
-table th:first-child {
-    -moz-border-radius: 6px 0 0 0;
-    -webkit-border-radius: 6px 0 0 0;
-    border-radius: 6px 0 0 0;
-}
-
-table th:last-child {
-    -moz-border-radius: 0 6px 0 0;
-    -webkit-border-radius: 0 6px 0 0;
-    border-radius: 0 6px 0 0;
-}
-
-table th:only-child {
-    -moz-border-radius: 6px 6px 0 0;
-    -webkit-border-radius: 6px 6px 0 0;
-    border-radius: 6px 6px 0 0;
-}
-
-table tr:last-child td:first-child {
-    -moz-border-radius: 0 0 0 6px;
-    -webkit-border-radius: 0 0 0 6px;
-    border-radius: 0 0 0 6px;
-}
-
-table tr:last-child td:last-child {
-    -moz-border-radius: 0 0 6px 0;
-    -webkit-border-radius: 0 0 6px 0;
-    border-radius: 0 0 6px 0;
 }

@@ -547,7 +547,7 @@ function openPreviousPage() {
                 if (widgetNotes) {
                     for (var i = 0; i < widgetNotes.length; i++) {
                         var widgetNote = widgetNotes[i];
-                        var widgetNoteUi = "<div class='widgetNoteContainer' data-id='" + widgetNote["id"] + "'>";
+                        var widgetNoteUi = "<div class='widgetNoteContainer markdown' data-id='" + widgetNote["id"] + "'>";
                         widgetNoteUi += "<div class='widgetNoteFootnote'></div>";
                         widgetNoteUi += "<div class='widgetNoteLabel'>" + widgetNote["label"] + "</div>";
 
@@ -659,7 +659,7 @@ function openPreviousPage() {
     }
 
     function generatePageNotes() {
-        var pageNotesUi = "<div id='pageNotesHeader'' class='sitemapHeader'>";
+        var pageNotesUi = "<div id='pageNotesHeader' class='sitemapHeader'>";
 
         pageNotesUi += "<div id='pageNotesToolbar' class='sitemapToolbar'>";
         pageNotesUi += "<div class='pluginNameHeader'>NOTES</div>";
