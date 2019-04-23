@@ -238,7 +238,7 @@ dd {
 
 /* override default chrome & firefox settings */
 
-.markdown input:not([type="image"]), textarea {
+.markdown input:not([type="image"]), .markdown textarea {
     -webkit-box-sizing: content-box;
     -moz-box-sizing: content-box;
     box-sizing: content-box;
