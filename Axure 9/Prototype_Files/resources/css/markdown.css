@@ -1,0 +1,426 @@
+.markdown {
+    background-color: #fff;
+    font-family: PingFang SC,Helvetica Neue,Hiragino Sans GB,Segoe UI,Microsoft YaHei,微软雅黑,sans-serif;
+}
+.markdown-preview{
+    padding: 15px;
+    display: block !important;
+
+}
+
+.markdown h1, .markdown h2, .markdown h3, .markdown h4 {
+    color: #111111;
+    font-weight: 400;
+    margin-top: 24px;
+}
+
+h1, h2, h3, h4, h5, .markdown p, .markdown dl {
+    margin-bottom: 16px;
+    padding: 0;
+}
+
+h1 {
+    font-size: 28px;
+    line-height: 54px;
+}
+
+h2 {
+    font-size: 24px;
+    line-height: 42px;
+}
+
+h1, h2 {
+    border-bottom: 1px solid #EFEAEA;
+    padding-bottom: 10px;
+}
+
+h3 {
+    font-size: 20px;
+    line-height: 30px;
+}
+
+h4 {
+    font-size: 16px;
+    line-height: 26px;
+}
+
+h5 {
+    font-size: 14px;
+    list-style: 23px;
+}
+
+.markdown a {
+    color: #0099ff;
+    margin: 0;
+    padding: 0;
+    vertical-align: baseline;
+}
+
+.markdown a:hover {
+    text-decoration: none;
+    color: #ff6600;
+}
+
+.markdown a:visited {
+    color: purple;
+}
+
+.markdown ul, .markdown ol {
+    padding: 0;
+    padding-left: 24px;
+    margin: 0;
+}
+
+.markdown li {
+    line-height: 24px;
+}
+
+.markdown p, .markdown ul, .markdown ol {
+    font-size: 14px;
+    line-height: 24px;
+}
+
+.markdown ol li {
+    list-style-type: decimal;
+}
+
+.markdown ul li {
+    list-style-type: disc;
+}
+
+/*pre {
+    padding: 0px 24px;
+    max-width: 800px;
+    white-space: pre-wrap;
+}
+code {
+    font-family: Consolas, Monaco, Andale Mono, monospace;
+    line-height: 1.5;
+    font-size: 13px;
+}*/
+
+code, pre {
+    border-radius: 3px;
+    background-color: #f7f7f7;
+    color: inherit;
+}
+
+.markdown code {
+    font-family: Consolas, Monaco, Andale Mono, monospace;
+    margin: 0 2px;
+    color: #666555;
+    font-size: 14px;
+}
+
+pre {
+    line-height: 1.7em;
+    overflow: auto;
+    padding: 6px 10px;
+    border-left: 5px solid #6CE26C;
+}
+
+pre>code {
+    border: 0;
+    display: inline;
+    max-width: initial;
+    padding: 0;
+    margin: 0;
+    overflow: initial;
+    line-height: inherit;
+    font-size: 14px;
+    white-space: pre;
+    background: 0 0;
+}
+
+/** markdown preview plus 对于代码块的处理有些问题, 所以使用统一的颜色 */
+
+code .keyword {
+  color: #8959a8;
+}
+
+code .number {
+  color: #f5871f;
+}
+
+code .comment {
+  color: #998
+}
+
+aside {
+    display: block;
+    float: right;
+    width: 390px;
+}
+
+blockquote {
+    border-left: .5em solid #eee;
+    padding: 0 0 0 2em;
+    margin-left: 0;
+}
+
+blockquote cite {
+    font-size: 14px;
+    line-height: 20px;
+    color: #bfbfbf;
+}
+
+blockquote cite:before {
+    content: '\2014 \00A0';
+}
+
+blockquote p {
+    color: #666;
+}
+
+.markdown dl {
+    padding: 0;
+}
+
+.markdown dl dt {
+    padding: 10px 0;
+    margin-top: 16px;
+    font-size: 1em;
+    font-style: italic;
+    font-weight: bold;
+}
+
+.markdown dl dd {
+    padding: 0 16px;
+    margin-bottom: 16px;
+}
+
+dd {
+    margin-left: 0;
+}
+
+.markdown hr {
+    height: 0;
+    margin: 15px 0;
+    overflow: hidden;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.markdown hr::before {
+    display: table;
+    content: "";
+}
+
+.markdown hr::after {
+    display: table;
+    clear: both;
+    content: "";
+}
+
+/* Code below this line is copyright Twitter Inc. */
+
+.markdown button, .markdown input, .markdown select, .markdown textarea {
+    font-size: 100%;
+    margin: 0;
+    vertical-align: baseline;
+    *vertical-align: middle;
+}
+
+.markdown button, .markdown input {
+    line-height: normal;
+    *overflow: visible;
+}
+
+.markdown button::-moz-focus-inner, .markdown input::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+.markdown button, .markdown input[type="button"], .markdown input[type="reset"], .markdown input[type="submit"] {
+    cursor: pointer;
+    -webkit-appearance: button;
+}
+
+.markdown input[type=checkbox],.markdown input[type=radio] {
+    cursor: pointer;
+}
+
+/* override default chrome & firefox settings */
+
+.markdown input:not([type="image"]), .markdown textarea {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+}
+
+.markdown input[type="search"] {
+    -webkit-appearance: textfield;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+}
+
+.markdown input[type="search"]::-webkit-search-decoration {
+    -webkit-appearance: none;
+}
+
+.markdown label, .markdown input, .markdown select, .markdown textarea {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: normal;
+    line-height: normal;
+    margin-bottom: 18px;
+}
+
+.markdown input[type=checkbox],.markdown input[type=radio] {
+    cursor: pointer;
+    margin-bottom: 0;
+}
+
+.markdown input[type=text],.markdown input[type=password], .markdown textarea, .markdown select {
+    display: inline-block;
+    width: 210px;
+    padding: 4px;
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 18px;
+    height: 18px;
+    color: #808080;
+    border: 1px solid #ccc;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.markdown select, .markdown input[type=file] {
+    height: 27px;
+    line-height: 27px;
+}
+
+.markdown textarea {
+    height: auto;
+}
+
+/* grey out placeholders */
+/* 
+:-moz-placeholder {
+    color: #bfbfbf;
+}
+
+::-webkit-input-placeholder {
+    color: #bfbfbf;
+} */
+
+.markdown input[type=text], .markdown input[type=password], .markdown select, .markdown textarea {
+    -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+    -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+    transition: border linear 0.2s, box-shadow linear 0.2s;
+    -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.markdown input[type=text]:focus, .markdown input[type=password]:focus, .markdown textarea:focus {
+    outline: none;
+    border-color: rgba(82, 168, 236, 0.8);
+    -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
+    -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
+}
+
+/* buttons */
+
+.markdown button {
+    display: inline-block;
+    padding: 4px 14px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    line-height: 18px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+    background-color: #0064cd;
+    background-repeat: repeat-x;
+    background-image: -khtml-gradient(linear, left top, left bottom, from(#049cdb), to(#0064cd));
+    background-image: -moz-linear-gradient(top, #049cdb, #0064cd);
+    background-image: -ms-linear-gradient(top, #049cdb, #0064cd);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #049cdb), color-stop(100%, #0064cd));
+    background-image: -webkit-linear-gradient(top, #049cdb, #0064cd);
+    background-image: -o-linear-gradient(top, #049cdb, #0064cd);
+    background-image: linear-gradient(top, #049cdb, #0064cd);
+    color: #fff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    border: 1px solid #004b9a;
+    border-bottom-color: #003f81;
+    -webkit-transition: 0.1s linear all;
+    -moz-transition: 0.1s linear all;
+    transition: 0.1s linear all;
+    border-color: #0064cd #0064cd #003f81;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+}
+
+.markdown button:hover {
+    color: #fff;
+    background-position: 0 -15px;
+    text-decoration: none;
+}
+
+.markdown button:active {
+    -webkit-box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.markdown button::-moz-focus-inner {
+    padding: 0;
+    border: 0;
+}
+
+.markdown table {
+    *border-collapse: collapse;
+    /* IE7 and lower */
+    border-spacing: 0;
+    width: 100%;
+}
+
+.markdown table {
+    border: solid #ccc 1px;
+    /*-webkit-box-shadow: 0 1px 1px #ccc;
+    -moz-box-shadow: 0 1px 1px #ccc;
+    box-shadow: 0 1px 1px #ccc;   */
+}
+
+.markdown table tr:hover {
+    background: #fbf8e9;
+    -o-transition: all 0.1s ease-in-out;
+    -webkit-transition: all 0.1s ease-in-out;
+    -moz-transition: all 0.1s ease-in-out;
+    -ms-transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease-in-out;
+}
+
+.markdown table td,.markdown  .table th {
+    border-left: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+.markdown table th {
+    background-color: #dce9f9;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#ebf3fc), to(#dce9f9));
+    background-image: -webkit-linear-gradient(top, #ebf3fc, #dce9f9);
+    background-image: -moz-linear-gradient(top, #ebf3fc, #dce9f9);
+    background-image: -ms-linear-gradient(top, #ebf3fc, #dce9f9);
+    background-image: -o-linear-gradient(top, #ebf3fc, #dce9f9);
+    background-image: linear-gradient(top, #ebf3fc, #dce9f9);
+    /*-webkit-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+    -moz-box-shadow:0 1px 0 rgba(255,255,255,.8) inset;
+    box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;*/
+    border-top: none;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, .5);
+    padding: 5px;
+}
+
+.markdown table td:first-child,.markdown table th:first-child {
+    border-left: none;
+}
