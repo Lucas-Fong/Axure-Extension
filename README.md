@@ -39,7 +39,7 @@
 
 > 详见Demo
 
-- [] 暂不支持注释显示Markdown
+- [ ] 暂不支持注释显示Markdown
 
 1. 新版本的注释存储格式更复杂了
 2. Markdown的格式在导出到word的时候无法生成markdown
