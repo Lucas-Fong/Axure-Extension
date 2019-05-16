@@ -38,11 +38,13 @@ function openPreviousPage() {
         });
 
         generateSitemap();
+        
 
         $('.sitemapPlusMinusLink').toggle(collapse_click, expand_click);
         $('.sitemapPageLink').click(node_click);
 
         $('#sitemapLinksContainer').hide();
+        $('#toggleTreeButton').click(toggle_tree_click);
         $('#linksButton').click(links_click);
         $('#adaptiveButton').click(adaptive_click);
         $('#adaptiveViewsContainer').hide();
@@ -50,7 +52,9 @@ function openPreviousPage() {
         $('#highlightInteractiveButton').click(highlight_interactive);
         $('#searchButton').click(search_click);
         $('#searchBox').keyup(search_input_keyup);
-        $('.sitemapLinkField').click(function () { this.select(); });
+        $('.sitemapLinkField').click(function () {
+            this.select();
+        });
         $('input[value="withoutmap"]').click(withoutSitemapRadio_click);
         $('input[value="withmap"]').click(withSitemapRadio_click);
         $('#minimizeBox, #collapseBox, #footnotesBox, #highlightBox').change(sitemapUrlOptions_change);
@@ -195,6 +199,98 @@ function openPreviousPage() {
         $axure.page.navigate(this.getAttribute('nodeUrl'), true);
     }
 
+    function toggle_tree_click(event) {
+        var userRes = prompt("从几级开始折叠(最小为1级)", 1);
+        var level = Math.floor(Number(userRes));
+        if (isNaN(level) || level < 0) return alert("必须输入正整数")
+
+        foldLeftMenu(level);
+    }
+///------------------
+    // 根据层级折叠菜单
+    function foldLeftMenu(level) {
+        var $leftMenuTree = $("#sitemapTreeContainer > ul.sitemapTree")
+        var levelFlag = {
+            lvMax: 10,
+            lvMin: level || 1,
+            lvCur:1,
+            isExceed: function () {
+                return levelFlag.lvCur > levelFlag.lvMax
+            },
+            completeFold: function () {
+                levelFlag.lvCur++
+            }
+        };
+
+        // 一级 Node
+        var $nodeList = $leftMenuTree.find("> .sitemapNode")
+        foldAllNodeByNodeList($nodeList, levelFlag, []);
+
+    }
+    // 折叠当前 node 的所有 sub node
+    function foldAllNodeByNodeList($nodeList, flag, foldCallBacks) {
+        // 是否超过需要折叠的层级
+        if (flag.isExceed()) {
+            executedAllCallBacks(foldCallBacks)
+            return;
+        }
+
+        var nextFoldNodeList = []; // 收集下一层级所有node
+        var needSkipLevel = isSkipLevel(flag);
+        for (var i = 0; i < $nodeList.length; i++) {
+            var $curNode = $nodeList.eq(i);
+            nextFoldNodeList = nextFoldNodeList.concat(findSubNodes($curNode));// 即使 父node 已折叠也 进行折叠 子node
+
+            if(!needSkipLevel)
+            foldCallBacks.push((function($node){
+                return function(){
+                    foldNode($node)
+                }
+            })($curNode));
+        }
+        flag.completeFold(); // 标志 折叠当前层级动作 已完成
+
+        var $nextFoldNodeList = $(nextFoldNodeList);
+        // 超出折叠最大层数
+        if (!nextFoldNodeList.length) {
+            executedAllCallBacks(foldCallBacks)
+            return
+        };
+
+        foldAllNodeByNodeList($nextFoldNodeList, flag, foldCallBacks)
+    }
+    // 获取当前 node 的所有 sub node
+    function findSubNodes($node) {
+        return $node.find("> ul > .sitemapNode").toArray()
+    }
+    // 判断Node是否已折叠
+    function isFolded($btn) {
+        return $btn.find(" .sitemapPlus").length === 1
+    }
+    // 判断Node是否可折叠
+    function canFold($node) {
+        return !$node.is(".sitemapLeafNode")
+    }
+    // 折叠当前 Node
+    function foldNode($node) {
+        var $btn_fold = $node.find(">div > div.sitemapPageLinkContainer .sitemapPlusMinusLink");
+        var btn_fold = $btn_fold.get(0);
+
+        btn_fold  && !isFolded($btn_fold) && btn_fold.click();
+    }
+
+    function executedAllCallBacks(arrCallBacks) {
+        for (var i = arrCallBacks.length - 1; i >= 0; i--) {
+            arrCallBacks[i].call();
+        }
+    }
+
+function isSkipLevel(flag){
+    return flag.lvCur < flag.lvMin;
+}
+
+    ///---------------------------------
+
     function links_click(event) {
         hideAllContainersExcept(3);
         $('#sitemapLinksContainer').toggle();
@@ -209,8 +305,9 @@ function openPreviousPage() {
     $axure.messageCenter.addMessageListener(function (message, data) {
         if (message == 'adaptiveViewChange') {
             $('.adaptiveViewOption').removeClass('currentAdaptiveView');
-            if (data.viewId) { $('div[val="' + data.viewId + '"]').addClass('currentAdaptiveView'); }
-            else $('div[val="default"]').addClass('currentAdaptiveView');
+            if (data.viewId) {
+                $('div[val="' + data.viewId + '"]').addClass('currentAdaptiveView');
+            } else $('div[val="default"]').addClass('currentAdaptiveView');
 
             //when we set adaptive view through user event, we want to update the checkmark on sitemap
             if (data.forceSwitchTo) {
@@ -393,6 +490,7 @@ function openPreviousPage() {
             treeUl += "<a id='adaptiveButton' title='Select Adaptive View' class='sitemapToolbarButton'></a>";
         }
 
+        treeUl += "<a id='toggleTreeButton' title='Toggle Tree' class='sitemapToolbarButton'></a>";
         treeUl += "<a id='linksButton' title='Get Links' class='sitemapToolbarButton'></a>";
         treeUl += "<a id='highlightInteractiveButton' title='Highlight interactive elements' class='sitemapToolbarButton'></a>";
         treeUl += "</div>";
@@ -463,8 +561,22 @@ function openPreviousPage() {
             allNodeUrls.push(node.url);
         }
         returnVal += "<span class='sitemapPageIcon";
-        if (node.type == "Flow") { returnVal += " sitemapFlowIcon"; }
-        if (isFolder) { returnVal += " sitemapFolderIcon"; }
+        if (node.type == "Flow") {
+            returnVal += " sitemapFlowIcon";
+        }
+        if (isFolder) {
+            returnVal += " sitemapFolderIcon";
+        }
+        if (node.pageName.indexOf(':marked') > 0) {
+            returnVal += " marked";
+        }
+        if (node.pageName.indexOf(':api') > 0) {
+            returnVal += " api";
+        }
+        if (node.pageName.indexOf(':config') > 0) {
+            returnVal += " config";
+        }
+
 
         returnVal += "'></span><span class='sitemapPageName'>";
         returnVal += $('<div/>').text(node.pageName).html();
@@ -488,7 +600,9 @@ function openPreviousPage() {
 //***** page_notes.js *****//
 // use this to isolate the scope
 (function () {
-    if (!$axure.document.configuration.showPageNotes && !$axure.document.configuration.showAnnotationsSidebar) { return; }
+    if (!$axure.document.configuration.showPageNotes && !$axure.document.configuration.showAnnotationsSidebar) {
+        return;
+    }
 
     $(window.document).ready(function () {
         $axure.player.createPluginHost({
@@ -526,11 +640,10 @@ function openPreviousPage() {
                         if (showNames) {
                             pageNoteUi += "<div class='pageNoteName'>" + noteName + "</div>";
                         }
-                        if (noteName.indexOf(":Markdown")>0) {                            
+                        if (noteName.indexOf(":Markdown") > 0) {
                             pageNoteUi += "<div class='pageNote'>" + marked(htmlify(notes[noteName])) + "</div>";
                             pageNoteUi += "</div>";
-                        }
-                        else {
+                        } else {
                             pageNoteUi += "<div class='pageNote'>" + linkify(notes[noteName]) + "</div>";
                             pageNoteUi += "</div>";
                         }
@@ -554,11 +667,9 @@ function openPreviousPage() {
                         for (var widgetNoteName in widgetNote) {
                             if (widgetNoteName != "label" && widgetNoteName != "id") {
                                 widgetNoteUi += "<div class='pageNoteName'>" + widgetNoteName + "</div>";
-                                if (widgetNoteName.indexOf(":Markdown")>0) {                  
+                                if (widgetNoteName.indexOf(":Markdown") > 0) {
                                     widgetNoteUi += "<div class='pageNote'>" + marked(htmlify(widgetNote[widgetNoteName])) + "</div>";
-                                }
-                                else
-                                {
+                                } else {
                                     widgetNoteUi += "<div class='pageNote'>" + linkify(widgetNote[widgetNoteName]) + "</div>";
                                 }
                                 widgetNoteUi += "<div class='nondottedDivider'></div>";
@@ -613,7 +724,7 @@ function openPreviousPage() {
         }
 
         function htmlify(text) {
-            return text.replace('</span><span>', '').replace('</p><p>', '\n').replace(/<\/?p[^>]*>/gi, '').replace(/<\/?span[^>]*>/gi, '').replace('<br>', '\t').replace('&gt;','>')
+            return text.replace('</span><span>', '').replace('</p><p>', '\n').replace(/<\/?p[^>]*>/gi, '').replace(/<\/?span[^>]*>/gi, '').replace('<br>', '\t').replace('&gt;', '>')
         }
     });
 
@@ -698,7 +809,9 @@ function openPreviousPage() {
 // use this to isolate the scope
 (function () {
 
-    if (!$axure.document.configuration.showConsole) { return; }
+    if (!$axure.document.configuration.showConsole) {
+        return;
+    }
 
     $(document).ready(function () {
         $axure.player.createPluginHost({
@@ -834,4 +947,4 @@ function openPreviousPage() {
         $('#traceEmptyState').show();
     }
 
-})();   
+})();
