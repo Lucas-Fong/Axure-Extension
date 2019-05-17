@@ -200,7 +200,8 @@ function openPreviousPage() {
     }
 
     function toggle_tree_click(event) {
-        var userRes = prompt("从几级开始折叠(最小为1级)", 1);
+        var userRes = prompt("从几级开始折叠(最小为1级)", 2);
+        if(userRes === null) return;
         var level = Math.floor(Number(userRes));
         if (isNaN(level) || level < 0) return alert("必须输入正整数")
 
@@ -484,6 +485,20 @@ function isSkipLevel(flag){
         treeUl += "<div class='pluginNameHeader'>PAGES</div>";
         treeUl += "<div class='pageNameHeader'></div>";
 
+        // treeUl += "<div class='pageButtonHeader'>";
+
+        // if ($axure.document.configuration.enabledViewIds.length > 0) {
+        //     treeUl += "<a id='adaptiveButton' title='Select Adaptive View' class='sitemapToolbarButton'></a>";
+        // }
+
+        // treeUl += "<a id='toggleTreeButton' title='Toggle Tree' class='sitemapToolbarButton'></a>";
+        // treeUl += "<a id='linksButton' title='Get Links' class='sitemapToolbarButton'></a>";
+        // treeUl += "<a id='highlightInteractiveButton' title='Highlight interactive elements' class='sitemapToolbarButton'></a>";
+        // treeUl += "</div>";
+
+        treeUl += "</div>";
+
+        
         treeUl += "<div class='pageButtonHeader'>";
 
         if ($axure.document.configuration.enabledViewIds.length > 0) {
@@ -495,7 +510,6 @@ function isSkipLevel(flag){
         treeUl += "<a id='highlightInteractiveButton' title='Highlight interactive elements' class='sitemapToolbarButton'></a>";
         treeUl += "</div>";
 
-        treeUl += "</div>";
 
         if ($axure.document.adaptiveViews.length > 0) {
             treeUl += "<div id='adaptiveViewsContainer'><div style='margin-bottom:10px;'>Adaptive Views</div></div>";
@@ -540,7 +554,7 @@ function isSkipLevel(flag){
 
         $('#sitemapHost').html(treeUl);
         if ($axure.document.adaptiveViews.length <= 0) {
-            $('#sitemapHost .pageNameHeader').css('padding-right', '55px');
+            $('#sitemapHost .pageNameHeader').css('padding-right', '2px');
         }
     }
 

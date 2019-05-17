@@ -214,13 +214,14 @@
 
 .sitemapHeader
 {
-    padding-top: 27px;
+    padding-top: 10px;
     border-bottom: 1px solid #d9d9d9;
     min-width: 110px;
+    padding-bottom:10px;
 }
 
 .sitemapToolbar {
-    margin: 0px 5px 14px 12px;
+    margin: 0px 5px 34px 12px;
 }
 
 .sitemapToolbarButton
@@ -234,9 +235,13 @@
 
 #toggleTreeButton {
     padding-top: 10px;
-    width: 18px;
+    width: 13px;
     margin-right: 5px;
-    background: url('images/ellipsis-h.svg') no-repeat center center, linear-gradient(transparent,transparent);
+    background: url('images/outdent.svg') no-repeat center center, linear-gradient(transparent,transparent);
+}
+
+#toggleTreeButton:hover {
+    background: url('images/outdent_hover.svg') no-repeat center center, linear-gradient(transparent,transparent);
 }
 
 #linksButton {
