@@ -16,11 +16,15 @@
 2. markdown的输入，需要使用文本域控件，命名方式(xxxxx-markdownPriview)
 3. markdown的输出，可以使用矩形控件，命名方式(xxxxx)
 
+![Demo Image](demo2.png)
+
 > 详见Demo
 
 - [x] 支持注释显示Markdown
 
 1. Axure使用时，如果需要支持Markdown格式，在字段命名时加入“:Markdown”即可。
+
+![Demo Image](demo3.png)
 
 > 详见Demo
 
