@@ -1,7 +1,8 @@
-# Markdown-for-Axure
+# Axure Extension V2.0
 
 1. Axure8 页面注释、控件注解及文本框控件支持Markdown格式
-2. Axure9 文本框控件支持Markdown格式
+2. Axure8 增加页面图标
+3. Axure9 文本框控件支持Markdown格式
 
 ## Usage for Axure 8
 
@@ -22,6 +23,15 @@
 1. Axure使用时，如果需要支持Markdown格式，在字段命名时加入“:Markdown”即可。
 
 > 详见Demo
+
+- [x] 支持页面图标修改。页面命名使用下列尾缀，可实现图标修改
+
+1. :api
+2. :cancel
+3. :config
+4. :done
+5. :detail
+6. :marked
 
 ---
 

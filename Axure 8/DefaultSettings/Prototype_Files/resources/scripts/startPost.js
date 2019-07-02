@@ -584,11 +584,20 @@ function isSkipLevel(flag){
         if (node.pageName.indexOf(':marked') > 0) {
             returnVal += " marked";
         }
-        if (node.pageName.indexOf(':api') > 0) {
+        else if(node.pageName.indexOf(':done')>0){
+            returnVal += " done";
+        }
+        else if (node.pageName.indexOf(':api') > 0) {
             returnVal += " api";
         }
-        if (node.pageName.indexOf(':config') > 0) {
+        else if (node.pageName.indexOf(':config') > 0) {
             returnVal += " config";
+        }
+        else if (node.pageName.indexOf(':cancel') > 0) {
+            returnVal += " cancel";
+        }
+        else if (node.pageName.indexOf(':detial') > 0) {
+            returnVal += " detial";
         }
 
 

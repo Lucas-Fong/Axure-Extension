@@ -95,6 +95,27 @@
     background-size: contain;
 }
 
+.sitemapPageIcon.done
+{
+	margin: 0px 0px -3px 4px;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    background: url('images/check-circle.svg') no-repeat center center, linear-gradient(transparent,transparent);
+    background-size: contain;
+}
+
+.sitemapPageIcon.cancel
+{
+	margin: 0px 0px -3px 4px;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    background: url('images/cancel.svg') no-repeat center center, linear-gradient(transparent,transparent);
+    background-size: contain;
+}
+
+
 .sitemapPageIcon.api
 {
 	margin: 0px 0px -3px 4px;
@@ -112,6 +133,16 @@
     height: 16px;
     display: inline-block;
     background: url('images/configure.svg') no-repeat center center, linear-gradient(transparent,transparent);
+    background-size: contain;
+}
+
+.sitemapPageIcon.detail
+{
+	margin: 0px 0px -3px 4px;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    background: url('images/detai..svg') no-repeat center center, linear-gradient(transparent,transparent);
     background-size: contain;
 }
 
