@@ -596,8 +596,8 @@ function isSkipLevel(flag){
         else if (node.pageName.indexOf(':cancel') > 0) {
             returnVal += " cancel";
         }
-        else if (node.pageName.indexOf(':detial') > 0) {
-            returnVal += " detial";
+        else if (node.pageName.indexOf(':detail') > 0) {
+            returnVal += " detail";
         }
 
 

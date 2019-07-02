@@ -142,7 +142,7 @@
     width: 16px;
     height: 16px;
     display: inline-block;
-    background: url('images/detai..svg') no-repeat center center, linear-gradient(transparent,transparent);
+    background: url('images/detail.svg') no-repeat center center, linear-gradient(transparent,transparent);
     background-size: contain;
 }
 

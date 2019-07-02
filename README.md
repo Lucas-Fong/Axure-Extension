@@ -26,12 +26,7 @@
 
 - [x] 支持页面图标修改。页面命名使用下列尾缀，可实现图标修改
 
-1. :api
-2. :cancel
-3. :config
-4. :done
-5. :detail
-6. :marked
+![Demo Image](demo1.png)
 
 ---
 
