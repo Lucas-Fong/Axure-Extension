@@ -38,7 +38,7 @@ function openPreviousPage() {
         });
 
         generateSitemap();
-        
+
 
         $('.sitemapPlusMinusLink').toggle(collapse_click, expand_click);
         $('.sitemapPageLink').click(node_click);
@@ -165,6 +165,8 @@ function openPreviousPage() {
 
 
         $('#searchBox').focusout();
+        //
+        foldLeftMenu(2);
     });
 
     function updateContainerHeight() {
@@ -201,20 +203,20 @@ function openPreviousPage() {
 
     function toggle_tree_click(event) {
         var userRes = prompt("从几级开始折叠(最小为1级)", 2);
-        if(userRes === null) return;
+        if (userRes === null) return;
         var level = Math.floor(Number(userRes));
         if (isNaN(level) || level < 0) return alert("必须输入正整数")
 
         foldLeftMenu(level);
     }
-///------------------
+    ///------------------
     // 根据层级折叠菜单
     function foldLeftMenu(level) {
         var $leftMenuTree = $("#sitemapTreeContainer > ul.sitemapTree")
         var levelFlag = {
             lvMax: 10,
             lvMin: level || 1,
-            lvCur:1,
+            lvCur: 1,
             isExceed: function () {
                 return levelFlag.lvCur > levelFlag.lvMax
             },
@@ -240,14 +242,14 @@ function openPreviousPage() {
         var needSkipLevel = isSkipLevel(flag);
         for (var i = 0; i < $nodeList.length; i++) {
             var $curNode = $nodeList.eq(i);
-            nextFoldNodeList = nextFoldNodeList.concat(findSubNodes($curNode));// 即使 父node 已折叠也 进行折叠 子node
+            nextFoldNodeList = nextFoldNodeList.concat(findSubNodes($curNode)); // 即使 父node 已折叠也 进行折叠 子node
 
-            if(!needSkipLevel)
-            foldCallBacks.push((function($node){
-                return function(){
-                    foldNode($node)
-                }
-            })($curNode));
+            if (!needSkipLevel)
+                foldCallBacks.push((function ($node) {
+                    return function () {
+                        foldNode($node)
+                    }
+                })($curNode));
         }
         flag.completeFold(); // 标志 折叠当前层级动作 已完成
 
@@ -277,7 +279,7 @@ function openPreviousPage() {
         var $btn_fold = $node.find(">div > div.sitemapPageLinkContainer .sitemapPlusMinusLink");
         var btn_fold = $btn_fold.get(0);
 
-        btn_fold  && !isFolded($btn_fold) && btn_fold.click();
+        btn_fold && !isFolded($btn_fold) && btn_fold.click();
     }
 
     function executedAllCallBacks(arrCallBacks) {
@@ -286,12 +288,74 @@ function openPreviousPage() {
         }
     }
 
-function isSkipLevel(flag){
-    return flag.lvCur < flag.lvMin;
-}
+    function isSkipLevel(flag) {
+        return flag.lvCur < flag.lvMin;
+    }
 
     ///---------------------------------
 
+    ///------------------
+    // 根据层级折叠菜单
+    // function foldLeftMenuOfDone() {
+    //     var $leftMenuTree = $("#sitemapTreeContainer > ul.sitemapTree")
+    //     var levelFlag = {
+    //         lvMax: 10,
+    //         lvMin: 1,
+    //         lvCur: 1,
+    //         isExceed: function () {
+    //             return levelFlag.lvCur > levelFlag.lvMax
+    //         },
+    //         completeFold: function () {
+    //             levelFlag.lvCur++
+    //         }
+    //     };
+
+    //     // 一级 Node
+    //     var $nodeList = $leftMenuTree.find("> .sitemapNode")
+    //     foldAllNodeByNodeListOfDone($nodeList, levelFlag, []);
+
+    // }
+    // // 折叠当前 node 的所有 sub node
+    // function foldAllNodeByNodeListOfDone($nodeList, flag, foldCallBacks) {
+    //     // 是否超过需要折叠的层级
+    //     if (flag.isExceed()) {
+    //         executedAllCallBacks(foldCallBacks)
+    //         return;
+    //     }
+
+    //     var nextFoldNodeList = []; // 收集下一层级所有node
+    //     var needSkipLevel = isSkipLevel(flag);
+    //     for (var i = 0; i < $nodeList.length; i++) {
+    //         var $curNode = $nodeList.eq(i);
+    //         nextFoldNodeList = nextFoldNodeList.concat(findSubNodes($curNode)); // 即使 父node 已折叠也 进行折叠 子node
+
+    //         if (!needSkipLevel)
+    //             foldCallBacks.push((function ($node) {
+    //                 return function () {
+    //                     foldNodeOfDone($node)
+    //                 }
+    //             })($curNode));
+    //     }
+    //     flag.completeFold(); // 标志 折叠当前层级动作 已完成
+
+    //     var $nextFoldNodeList = $(nextFoldNodeList);
+    //     // 超出折叠最大层数
+    //     if (!nextFoldNodeList.length) {
+    //         executedAllCallBacks(foldCallBacks)
+    //         return
+    //     };
+
+    //     foldAllNodeByNodeListOfDone($nextFoldNodeList, flag, foldCallBacks)
+    // }
+    // // 折叠当前 Node
+    // function foldNodeOfDone($node) {
+    //     var $btn_fold = $node.find(">div > div.sitemapPageLinkContainer .sitemapPlusMinusLink");
+    //     var btn_fold = $btn_fold.get(0);
+    //     var item_name = $btn_fold.find("a.sitemapPageName");
+
+    //     btn_fold && !isFolded($btn_fold) && item_name.indexOf(":done") > 0 && btn_fold.click();
+    // }
+    //----------------------
     function links_click(event) {
         hideAllContainersExcept(3);
         $('#sitemapLinksContainer').toggle();
@@ -487,18 +551,9 @@ function isSkipLevel(flag){
 
         // treeUl += "<div class='pageButtonHeader'>";
 
-        // if ($axure.document.configuration.enabledViewIds.length > 0) {
-        //     treeUl += "<a id='adaptiveButton' title='Select Adaptive View' class='sitemapToolbarButton'></a>";
-        // }
-
-        // treeUl += "<a id='toggleTreeButton' title='Toggle Tree' class='sitemapToolbarButton'></a>";
-        // treeUl += "<a id='linksButton' title='Get Links' class='sitemapToolbarButton'></a>";
-        // treeUl += "<a id='highlightInteractiveButton' title='Highlight interactive elements' class='sitemapToolbarButton'></a>";
-        // treeUl += "</div>";
-
         treeUl += "</div>";
 
-        
+
         treeUl += "<div class='pageButtonHeader'>";
 
         if ($axure.document.configuration.enabledViewIds.length > 0) {
@@ -581,23 +636,26 @@ function isSkipLevel(flag){
         if (isFolder) {
             returnVal += " sitemapFolderIcon";
         }
-        if (node.pageName.indexOf(':marked') > 0) {
-            returnVal += " marked";
-        }
-        else if(node.pageName.indexOf(':done')>0){
-            returnVal += " done";
-        }
-        else if (node.pageName.indexOf(':api') > 0) {
-            returnVal += " api";
-        }
-        else if (node.pageName.indexOf(':config') > 0) {
-            returnVal += " config";
-        }
-        else if (node.pageName.indexOf(':cancel') > 0) {
-            returnVal += " cancel";
-        }
-        else if (node.pageName.indexOf(':detail') > 0) {
-            returnVal += " detail";
+        if (node.type != "Folder" && node.type != "Flow") {
+            if (node.pageName.indexOf(':marked') > 0) {
+                returnVal += " marked";
+            } else if (node.pageName.indexOf(':add') > 0) {
+                returnVal += " add";
+            } else if (node.pageName.indexOf(':edit') > 0) {
+                returnVal += " edit";
+            } else if (node.pageName.indexOf(':done') > 0) {
+                returnVal += " done";
+            } else if (node.pageName.indexOf(':api') > 0) {
+                returnVal += " api";
+            } else if (node.pageName.indexOf(':config') > 0) {
+                returnVal += " config";
+            } else if (node.pageName.indexOf(':cancel') > 0) {
+                returnVal += " cancel";
+            } else if (node.pageName.indexOf(':detail') > 0) {
+                returnVal += " detail";
+            } else if (node.pageName.indexOf(':stop') > 0) {
+                returnVal += " stop";
+            }
         }
 
 
@@ -634,7 +692,7 @@ function isSkipLevel(flag){
             title: 'NOTES',
             gid: 2
         });
-
+        
         generatePageNotes();
 
         $(document).on('ContainerHeightChange', function () {
@@ -661,7 +719,7 @@ function isSkipLevel(flag){
                     for (var noteName in notes) {
                         var pageNoteUi = "<div class='pageNoteContainer markdown'>";
                         if (showNames) {
-                            pageNoteUi += "<div class='pageNoteName'>" + noteName + "</div>";
+                            pageNoteUi += "<div class='pageNoteName'>" + noteName.replace(":Markdown","") + "</div>";
                         }
                         if (noteName.indexOf(":Markdown") > 0) {
                             pageNoteUi += "<div class='pageNote'>" + marked(htmlify(notes[noteName])) + "</div>";
@@ -689,7 +747,7 @@ function isSkipLevel(flag){
 
                         for (var widgetNoteName in widgetNote) {
                             if (widgetNoteName != "label" && widgetNoteName != "id") {
-                                widgetNoteUi += "<div class='pageNoteName'>" + widgetNoteName + "</div>";
+                                widgetNoteUi += "<div class='pageNoteName'>" + widgetNoteName.replace(":Markdown","") + "</div>";
                                 if (widgetNoteName.indexOf(":Markdown") > 0) {
                                     widgetNoteUi += "<div class='pageNote'>" + marked(htmlify(widgetNote[widgetNoteName])) + "</div>";
                                 } else {

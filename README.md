@@ -1,10 +1,10 @@
-# Axure Extension V2.0
+# Axure Extension
 
 1. Axure8 页面注释、控件注解及文本框控件支持Markdown格式
 2. Axure8 增加页面图标
 3. Axure9 文本框控件支持Markdown格式
 
-## Usage for Axure 8
+## Usage for Axure 8 V3.1
 
 1. 下载替换文件夹；
 2. 打开Axure8根目录，备份文件夹DefaultSettings；
@@ -31,6 +31,18 @@
 - [x] 支持页面图标修改。页面命名使用下列尾缀，可实现图标修改
 
 ![Demo Image](demo1.png)
+
+- [x] 支持PDF文件在线预览。
+
+![Demo Image](../demo4.png)
+
+> 详见Demo
+
+- [x] 支持OFFICE文件在线预览。
+
+![Demo Image](../demo5.png)
+
+> 详见Demo
 
 ---
 

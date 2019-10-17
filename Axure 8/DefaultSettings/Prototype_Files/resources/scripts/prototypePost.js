@@ -12660,7 +12660,7 @@ $axure.internal(function ($ax) {
         var retVal = "";
         for (var noteName in annJson) {
             if (noteName != "label" && noteName != "id") {
-                retVal += "<div class='annotationName'>" + noteName + "</div>";
+                retVal += "<div class='annotationName'>" + noteName.replace(":Markdown","") + "</div>";
                 if (noteName.indexOf(":Markdown") > 0) {
                     retVal += "<div class='annotationValue markdown'>" + marked(htmlify(annJson[noteName])) + "</div>";
                 }
@@ -13235,3 +13235,8 @@ $axure.internal(function ($ax) {
         }
     }
 });
+
+
+// 默认值
+$axure.setGlobalVariable('url', (function(){var url = window.location.protocol + '/\/' + window.location.host; url.indexOf('127')>0?url = 'http://192.168.1.5:30032':url;return url;})()) 
+                

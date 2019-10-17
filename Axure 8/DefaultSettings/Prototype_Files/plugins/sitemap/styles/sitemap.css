@@ -81,71 +81,63 @@
     width: 16px;
     height: 16px;
     display: inline-block;
-    background: url('images/page.png') no-repeat center center;
     background: url('images/page.svg') no-repeat center center, linear-gradient(transparent,transparent);
 }
 
 .sitemapPageIcon.marked
 {
-	margin: 0px 0px -3px 4px;
-    width: 16px;
-    height: 16px;
-    display: inline-block;
     background: url('images/page-marked.svg') no-repeat center center, linear-gradient(transparent,transparent);
+    background-size: contain;
+}
+
+.sitemapPageIcon.add
+{
+    background: url('images/page-add.svg') no-repeat center center, linear-gradient(transparent,transparent);
+    background-size: contain;
+}
+
+.sitemapPageIcon.edit
+{
+    background: url('images/page-edit.svg') no-repeat center center, linear-gradient(transparent,transparent);
     background-size: contain;
 }
 
 .sitemapPageIcon.done
 {
-	margin: 0px 0px -3px 4px;
-    width: 16px;
-    height: 16px;
-    display: inline-block;
     background: url('images/check-circle.svg') no-repeat center center, linear-gradient(transparent,transparent);
     background-size: contain;
 }
 
 .sitemapPageIcon.cancel
 {
-	margin: 0px 0px -3px 4px;
-    width: 16px;
-    height: 16px;
-    display: inline-block;
     background: url('images/cancel.svg') no-repeat center center, linear-gradient(transparent,transparent);
     background-size: contain;
 }
 
-
 .sitemapPageIcon.api
 {
-	margin: 0px 0px -3px 4px;
-    width: 16px;
-    height: 16px;
-    display: inline-block;
     background: url('images/api.svg') no-repeat center center, linear-gradient(transparent,transparent);
     background-size: contain;
 }
 
 .sitemapPageIcon.config
 {
-	margin: 0px 0px -3px 4px;
-    width: 16px;
-    height: 16px;
-    display: inline-block;
     background: url('images/configure.svg') no-repeat center center, linear-gradient(transparent,transparent);
+    background-size: contain;
+}
+
+.sitemapPageIcon.stop
+{
+    background: url('images/stop.svg') no-repeat center center, linear-gradient(transparent,transparent);
     background-size: contain;
 }
 
 .sitemapPageIcon.detail
 {
-	margin: 0px 0px -3px 4px;
-    width: 16px;
-    height: 16px;
-    display: inline-block;
     background: url('images/detail.svg') no-repeat center center, linear-gradient(transparent,transparent);
     background-size: contain;
 }
-
+/*  */
 
 .sitemapFlowIcon
 {
@@ -155,13 +147,11 @@
 
 .sitemapFolderIcon
 {
-    background: url('images/folder_closed.png') no-repeat center center;
     background: url('images/folder_closed.svg') no-repeat center center, linear-gradient(transparent,transparent);
 }
 
 .sitemapFolderOpenIcon
 {
-    background: url('images/folder_open.png') no-repeat center center;
     background: url('images/folder_open.svg') no-repeat center center, linear-gradient(transparent,transparent);
 }
 
