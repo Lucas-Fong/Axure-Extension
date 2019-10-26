@@ -1,10 +1,13 @@
-# Axure Extension
+# Axure Extension RP 8 & RP 9
 
-1. Axure8 页面注释、控件注解及文本框控件支持Markdown格式
-2. Axure8 增加页面图标
-3. Axure9 文本框控件支持Markdown格式
+1. Axure RP 8 页面注释、控件注解及文本框控件支持Markdown格式;
+1. Axure RP 8 增加页面图标（新增、修改、删除、完成、API、config、标记，详细）;
+1. Axure RP 8 增加PDF在线预览;
+1. Axure RP 8 增加Office文件在线预览;
 
-## Usage for Axure 8 V3.1
+1. Axure RP 9 文本框控件支持Markdown格式。
+
+## Usage for Axure RP 8 : V3.1
 
 1. 下载替换文件夹；
 2. 打开Axure8根目录，备份文件夹DefaultSettings；
@@ -46,7 +49,7 @@
 
 ---
 
-## Usage for Axure 9
+## Usage for Axure RP 9 : V1.0
 
 1. 下载替换文件夹
 2. 打开Axure8根目录，备份文件夹DefaultSettings
