@@ -34,13 +34,13 @@
 
 - [x] 支持PDF文件在线预览。
 
-![Demo Image](../demo4.png)
+![Demo Image](demo4.png)
 
 > 详见Demo
 
 - [x] 支持OFFICE文件在线预览。
 
-![Demo Image](../demo5.png)
+![Demo Image](demo5.png)
 
 > 详见Demo
 
