@@ -3,7 +3,7 @@ var allNodeUrls = [];
 
 var openNextPage = $axure.player.openNextPage = function () {
     var index = allNodeUrls.indexOf(currentNodeUrl) + 1;
-    if(index >= allNodeUrls.length) return;
+    if (index >= allNodeUrls.length) return;
     var nextNodeUrl = allNodeUrls[index];
     currentNodeUrl = nextNodeUrl;
     $('.sitemapPageLink[nodeUrl="' + nextNodeUrl + '"]').parent().mousedown();
@@ -11,14 +11,14 @@ var openNextPage = $axure.player.openNextPage = function () {
 
 var openPreviousPage = $axure.player.openPreviousPage = function () {
     var index = allNodeUrls.indexOf(currentNodeUrl) - 1;
-    if(index < 0) return;
+    if (index < 0) return;
     var nextNodeUrl = allNodeUrls[index];
     currentNodeUrl = nextNodeUrl;
     $('.sitemapPageLink[nodeUrl="' + nextNodeUrl + '"]').parent().mousedown();
 };
 
 // use this to isolate the scope
-(function() {
+(function () {
 
     var SHOW_HIDE_ANIMATION_DURATION = 0;
 
@@ -28,7 +28,7 @@ var openPreviousPage = $axure.player.openPreviousPage = function () {
     var currentPlayerLoc = '';
     var currentPageHashString = '';
 
-    $(window.document).ready(function() {
+    $(window.document).ready(function () {
         $axure.player.createPluginHost({
             id: 'sitemapHost',
             context: 'project',
@@ -38,14 +38,15 @@ var openPreviousPage = $axure.player.openPreviousPage = function () {
 
         $(window.document).bind('keyup', function (e) {
             if (e.target.localName == "textarea" || e.target.localName == "input") return;
-            switch(e.which) {
+            switch (e.which) {
                 case 188:
                     openPreviousPage();
                     break;
                 case 190:
                     openNextPage();
                     break;
-                default: return; // exit this handler for other keys
+                default:
+                    return; // exit this handler for other keys
             }
         });
 
@@ -65,7 +66,7 @@ var openPreviousPage = $axure.player.openPreviousPage = function () {
         $('#searchBox').keyup(search_input_keyup);
 
         // bind to the page load
-        $axure.page.bind('load.sitemap', function() {
+        $axure.page.bind('load.sitemap', function () {
             currentPageLoc = $axure.page.location.split("#")[0];
             var decodedPageLoc = decodeURI(currentPageLoc);
             currentNodeUrl = decodedPageLoc.substr(decodedPageLoc.lastIndexOf('/') ? decodedPageLoc.lastIndexOf('/') + 1 : 0);
@@ -78,13 +79,14 @@ var openPreviousPage = $axure.player.openPreviousPage = function () {
             $('#sitemapTreeContainer').find('.sitemapHighlight').removeClass('sitemapHighlight');
             $('.sitemapPageLink[nodeUrl="' + currentNodeUrl + '"]').parent().parent().addClass('sitemapHighlight');
 
-            var pageName = $axure.page.pageName;
+            var iSign = $axure.page.pageName.lastIndexOf("::")
+            var pageName = iSign > 0 ? $axure.page.pageName.substring(0,iSign) : $axure.page.pageName;
             $('.pageNameHeader').html(pageName);
 
             //If highlight var is present and set to 1 or else if
             //sitemap highlight button is selected then highlight interactive elements
             var hiVal = $axure.player.getHashStringVar(HIGHLIGHT_INTERACTIVE_VAR_NAME);
-            if(hiVal.length > 0 && hiVal == 1) {
+            if (hiVal.length > 0 && hiVal == 1) {
                 $('#showHotspotsOption').find('.overflowOptionCheckbox').addClass('selected');
                 if ($('#projectOptionsHotspotsCheckbox').length > 0) $('#projectOptionsHotspotsCheckbox').addClass('selected');
                 $axure.messageCenter.postMessage('highlightInteractive', true);
@@ -101,18 +103,18 @@ var openPreviousPage = $axure.player.openPreviousPage = function () {
             //If the view is invalid, set it to 'auto' in the string
             //ELSE set the view based on the currently selected view in the toolbar menu
             var viewStr = $axure.player.getHashStringVar(ADAPTIVE_VIEW_VAR_NAME);
-            if(viewStr.length > 0) {
+            if (viewStr.length > 0) {
                 var $view = $('.adaptiveViewOption[val="' + viewStr + '"]');
-                if($view.length > 0) $view.click();
+                if ($view.length > 0) $view.click();
                 else $('.adaptiveViewOption[val="auto"]').click();
-            } else if($('.selectedRadioButton').length > 0) {
+            } else if ($('.selectedRadioButton').length > 0) {
                 var $viewOption = $('.selectedRadioButton').parents('.adaptiveViewOption');
                 $viewOption.click();
             }
             updateAdaptiveViewHeader();
 
             function setDefaultScaleForDevice() {
-                if(MOBILE_DEVICE && $axure.player.isMobileMode()) {
+                if (MOBILE_DEVICE && $axure.player.isMobileMode()) {
                     $('.projectOptionsScaleRow[val="0"]').click();
                 } else {
                     $('.vpScaleOption[val="0"]').click();
@@ -120,22 +122,25 @@ var openPreviousPage = $axure.player.openPreviousPage = function () {
             }
 
             var scaleStr = $axure.player.getHashStringVar(SCALE_VAR_NAME);
-            if(scaleStr.length > 0) {
+            if (scaleStr.length > 0) {
                 var $scale = $('.vpScaleOption[val="' + scaleStr + '"]');
-                if($scale.length > 0) $scale.click();
+                if ($scale.length > 0) $scale.click();
                 else setDefaultScaleForDevice();
             } else {
                 setDefaultScaleForDevice();
             }
 
             var rotateStr = $axure.player.getHashStringVar(ROT_VAR_NAME);
-            if(rotateStr.length > 0) {
+            if (rotateStr.length > 0) {
                 $('#vpRotate').prop('checked', true);
             }
 
             $axure.player.suspendRefreshViewPort = false;
 
-            if (!$axure.player.isViewOverridden()) $axure.messageCenter.postMessage('setAdaptiveViewForSize', { 'width': $('#mainPanel').width(), 'height': $('#mainPanel').height() });
+            if (!$axure.player.isViewOverridden()) $axure.messageCenter.postMessage('setAdaptiveViewForSize', {
+                'width': $('#mainPanel').width(),
+                'height': $('#mainPanel').height()
+            });
 
             $axure.player.refreshViewPort();
 
@@ -146,7 +151,7 @@ var openPreviousPage = $axure.player.openPreviousPage = function () {
         });
 
         var $vpContainer = $('#interfaceScaleListContainer');
-        
+
         var scaleOptions = '<div class="vpScaleOption" val="0"><div class="scaleRadioButton"><div class="selectedRadioButtonFill"></div></div>Default Scale</div>';
         scaleOptions += '<div class="vpScaleOption" val="1"><div class="scaleRadioButton"><div class="selectedRadioButtonFill"></div></div>Scale to Width</div>';
         scaleOptions += '<div class="vpScaleOption" val="2"><div class="scaleRadioButton"><div class="selectedRadioButtonFill"></div></div>Scale to Fit</div>';
@@ -171,13 +176,13 @@ var openPreviousPage = $axure.player.openPreviousPage = function () {
             $('.projectOptionsScaleRow').click(vpScaleOption_click);
         }
 
-        $('#searchBox').focusin(function() {
-            if($(this).is('.searchBoxHint')) {
+        $('#searchBox').focusin(function () {
+            if ($(this).is('.searchBoxHint')) {
                 $(this).val('');
                 $(this).removeClass('searchBoxHint');
             }
-        }).focusout(function() {
-            if($(this).val() == '') {
+        }).focusout(function () {
+            if ($(this).val() == '') {
                 $(this).addClass('searchBoxHint');
             }
         });
@@ -186,9 +191,9 @@ var openPreviousPage = $axure.player.openPreviousPage = function () {
         $('#searchBox').focusout();
     });
 
-    var _formatViewDimension = function(dim) {
-        if(dim == 0) return 'any';
-        if(dim.toString().includes('.')) return dim.toFixed(2);
+    var _formatViewDimension = function (dim) {
+        if (dim == 0) return 'any';
+        if (dim.toString().includes('.')) return dim.toFixed(2);
         return dim;
     };
 
@@ -221,8 +226,8 @@ var openPreviousPage = $axure.player.openPreviousPage = function () {
 
         var useViews = $axure.document.configuration.useViews;
         var hasViews = false;
-        if(useViews) {
-            for(var viewIndex = 0; viewIndex < $axure.page.adaptiveViews.length; viewIndex++) {
+        if (useViews) {
+            for (var viewIndex = 0; viewIndex < $axure.page.adaptiveViews.length; viewIndex++) {
                 var currView = $axure.page.adaptiveViews[viewIndex];
 
                 var widthString = _formatViewDimension(currView.size.width);
@@ -230,7 +235,7 @@ var openPreviousPage = $axure.player.openPreviousPage = function () {
 
                 var viewString = currView.name + ' (' + widthString + ' x ' + heightString + ')';
                 viewsList += '<div class="' + adaptiveViewOptionClass +
-                    ((forProjectOptions && (viewIndex == $axure.page.adaptiveViews.length - 1)) ? '" style="border-bottom: solid 1px #c7c7c7; margin-bottom: 15px;' : '') + 
+                    ((forProjectOptions && (viewIndex == $axure.page.adaptiveViews.length - 1)) ? '" style="border-bottom: solid 1px #c7c7c7; margin-bottom: 15px;' : '') +
                     '" val="' +
                     currView.id +
                     '"  data-dim="' +
@@ -272,7 +277,7 @@ var openPreviousPage = $axure.player.openPreviousPage = function () {
 
 
     function collapse_click(event) {
-        if($(this).children('.sitemapPlus').length > 0) {
+        if ($(this).children('.sitemapPlus').length > 0) {
             expand_click($(this));
         } else {
             $(this)
@@ -293,17 +298,28 @@ var openPreviousPage = $axure.player.openPreviousPage = function () {
             $('#searchIcon').addClass('sitemapToolbarButtonSelected')
             $('#searchBox').width(0);
             $('#searchBox').show();
-            $('#searchBox').animate({ width: '95%' }, { duration: 200, complete: function () { $('#searchBox').focus(); } });
+            $('#searchBox').animate({
+                width: '95%'
+            }, {
+                duration: 200,
+                complete: function () {
+                    $('#searchBox').focus();
+                }
+            });
         }
     }
 
     function searchBoxClose_click(event) {
         if ($('#searchIcon').hasClass('sitemapToolbarButtonSelected')) {
-            $('#searchBox').animate({ width: '0%' }, { duration: 200,
+            $('#searchBox').animate({
+                width: '0%'
+            }, {
+                duration: 200,
                 complete: function () {
                     $('#searchBox').hide();
                     $('#searchIcon').removeClass('sitemapToolbarButtonSelected')
-                }});
+                }
+            });
             $('#searchBox').val('');
             $('#searchBox').keyup();
         }
@@ -320,19 +336,25 @@ var openPreviousPage = $axure.player.openPreviousPage = function () {
         $('#mainPanel').css('opacity', '0');
         $('#clippingBounds').css('opacity', '0');
     }
+
     function showMainPanel() {
-        $('#mainPanel').animate({ opacity: 1 }, 10);
-        $('#clippingBounds').animate({ opacity: 1 }, 10);
+        $('#mainPanel').animate({
+            opacity: 1
+        }, 10);
+        $('#clippingBounds').animate({
+            opacity: 1
+        }, 10);
     }
 
-    $axure.messageCenter.addMessageListener(function(message, data) {
-        if(message == 'adaptiveViewChange') {
+    $axure.messageCenter.addMessageListener(function (message, data) {
+        if (message == 'adaptiveViewChange') {
             $('.adaptiveViewOption').removeClass('currentAdaptiveView');
-            if(data.viewId) {$('.adaptiveViewOption[val="' + data.viewId + '"]').addClass('currentAdaptiveView');}
-            else $('.adaptiveViewOption[val="default"]').addClass('currentAdaptiveView');
+            if (data.viewId) {
+                $('.adaptiveViewOption[val="' + data.viewId + '"]').addClass('currentAdaptiveView');
+            } else $('.adaptiveViewOption[val="default"]').addClass('currentAdaptiveView');
 
             //when we set adaptive view through user event, we want to update the checkmark on sitemap
-            if(data.forceSwitchTo) {
+            if (data.forceSwitchTo) {
                 $('.adapViewRadioButton').find('.selectedRadioButtonFill').hide();
                 $('.adapViewRadioButton').removeClass('selectedRadioButton');
                 $('div[val="' + data.forceSwitchTo + '"]').find('.adapViewRadioButton').addClass('selectedRadioButton');
@@ -342,9 +364,9 @@ var openPreviousPage = $axure.player.openPreviousPage = function () {
             updateAdaptiveViewHeader();
             $axure.player.refreshViewPort();
 
-        } else if(message == 'previousPage') {
+        } else if (message == 'previousPage') {
             openPreviousPage();
-        } else if(message == 'nextPage') {
+        } else if (message == 'nextPage') {
             openNextPage();
         }
     });
@@ -364,7 +386,7 @@ var openPreviousPage = $axure.player.openPreviousPage = function () {
 
         if ($(overflowMenuCheckbox).hasClass('selected')) {
             overflowMenuCheckbox.removeClass('selected');
-            if (projOptionsCheckbox.length > 0 ) projOptionsCheckbox.removeClass('selected');
+            if (projOptionsCheckbox.length > 0) projOptionsCheckbox.removeClass('selected');
             $axure.messageCenter.postMessage('highlightInteractive', false);
             //Delete 'hi' hash string var if it exists since default is unselected
             $axure.player.deleteVarFromCurrentUrlHash(HIGHLIGHT_INTERACTIVE_VAR_NAME);
@@ -382,8 +404,9 @@ var openPreviousPage = $axure.player.openPreviousPage = function () {
         var currVal = $(this).attr('val');
 
         $('.adaptiveViewOption').removeClass('currentAdaptiveView');
-        if(currVal) {$('.adaptiveViewOption[val="' + currVal + '"]').addClass('currentAdaptiveView');}
-        else $('.adaptiveViewOption[val="default"]').addClass('currentAdaptiveView');
+        if (currVal) {
+            $('.adaptiveViewOption[val="' + currVal + '"]').addClass('currentAdaptiveView');
+        } else $('.adaptiveViewOption[val="default"]').addClass('currentAdaptiveView');
 
         $('.adapViewRadioButton').find('.selectedRadioButtonFill').hide();
         $('.adapViewRadioButton').removeClass('selectedRadioButton');
@@ -395,16 +418,19 @@ var openPreviousPage = $axure.player.openPreviousPage = function () {
         updateAdaptiveViewHeader();
     }
 
-    var selectAdaptiveView = $axure.player.selectAdaptiveView = function(currVal) {
+    var selectAdaptiveView = $axure.player.selectAdaptiveView = function (currVal) {
         if (currVal == 'auto') {
-            $axure.messageCenter.postMessage('setAdaptiveViewForSize', { 'width': $('#mainPanel').width(), 'height': $('#mainPanel').height() });
+            $axure.messageCenter.postMessage('setAdaptiveViewForSize', {
+                'width': $('#mainPanel').width(),
+                'height': $('#mainPanel').height()
+            });
             $axure.player.deleteVarFromCurrentUrlHash(ADAPTIVE_VIEW_VAR_NAME);
         } else {
             currentPageLoc = $axure.page.location.split("#")[0];
             var decodedPageLoc = decodeURI(currentPageLoc);
-            var nodeUrl = decodedPageLoc.substr(decodedPageLoc.lastIndexOf('/')
-                ? decodedPageLoc.lastIndexOf('/') + 1
-                : 0);
+            var nodeUrl = decodedPageLoc.substr(decodedPageLoc.lastIndexOf('/') ?
+                decodedPageLoc.lastIndexOf('/') + 1 :
+                0);
             var adaptiveData = {
                 src: nodeUrl
             };
@@ -461,15 +487,15 @@ var openPreviousPage = $axure.player.openPreviousPage = function () {
         var searchVal = $(this).val().toLowerCase();
         //If empty search field, show all nodes, else grey+hide all nodes and
         //ungrey+unhide all matching nodes, as well as unhide their parent nodes
-        if(searchVal == '') {
+        if (searchVal == '') {
             $('.sitemapPageName').removeClass('sitemapGreyedName');
             $('.sitemapNode').show();
         } else {
             $('.sitemapNode').hide();
 
-            $('.sitemapPageName').addClass('sitemapGreyedName').each(function() {
+            $('.sitemapPageName').addClass('sitemapGreyedName').each(function () {
                 var nodeName = $(this).text().toLowerCase();
-                if(nodeName.indexOf(searchVal) != -1) {
+                if (nodeName.indexOf(searchVal) != -1) {
                     $(this).removeClass('sitemapGreyedName').parents('.sitemapNode:first').show().parents('.sitemapExpandableNode').show();
                 }
             });
@@ -497,7 +523,7 @@ var openPreviousPage = $axure.player.openPreviousPage = function () {
         treeUl += "<div id='sitemapTreeContainer'>";
         treeUl += "<ul class='sitemapTree' style='clear:both;'>";
         var rootNodes = $axure.document.sitemap.rootNodes;
-        for(var i = 0; i < rootNodes.length; i++) {
+        for (var i = 0; i < rootNodes.length; i++) {
             treeUl += generateNode(rootNodes[i], 0);
         }
         treeUl += "</ul></div>";
@@ -517,7 +543,7 @@ var openPreviousPage = $axure.player.openPreviousPage = function () {
     function generateNode(node, level) {
         var hasChildren = (node.children && node.children.length > 0);
         var margin, returnVal;
-        if(hasChildren) {
+        if (hasChildren) {
             margin = (9 + level * 17);
             returnVal = "<li class='sitemapNode sitemapExpandableNode'><div><div class='sitemapPageLinkContainer' style='margin-left:" + margin + "px'><a class='sitemapPlusMinusLink'><span class='sitemapMinus'></span></a>";
         } else {
@@ -526,22 +552,38 @@ var openPreviousPage = $axure.player.openPreviousPage = function () {
         }
 
         var isFolder = node.type == "Folder";
-        if(!isFolder) {
+        if (!isFolder) {
             returnVal += "<a class='sitemapPageLink' nodeUrl='" + node.url + "'>";
             allNodeUrls.push(node.url);
         }
         returnVal += "<span class='sitemapPageIcon";
-        if(isFolder) { returnVal += " sitemapFolderIcon"; }
+        if (isFolder) {
+            returnVal += " sitemapFolderIcon";
+        }
+
+        //NodeSign Begin
+        /*
+            判断文件名称，将::之后的尾缀标记为样式
+        */
+        if (node.type != "Folder" && node.type != "Flow") {
+            var iSign = node.pageName.lastIndexOf('::');
+            if (iSign > 0) {
+                var sign = node.pageName.substr(iSign + 2);
+                returnVal += " " + sign;
+                node.pageName = node.pageName.substring(0, iSign)//去除后缀显示
+            }
+        }
+        //NodeSign End
 
         returnVal += "'></span><span class='sitemapPageName'>";
         returnVal += $('<div/>').text(node.pageName).html();
         returnVal += "</span>";
-        if(!isFolder) returnVal += "</a>";
+        if (!isFolder) returnVal += "</a>";
         returnVal += "</div></div>";
 
-        if(hasChildren) {
+        if (hasChildren) {
             returnVal += "<ul>";
-            for(var i = 0; i < node.children.length; i++) {
+            for (var i = 0; i < node.children.length; i++) {
                 var child = node.children[i];
                 returnVal += generateNode(child, level + 1);
             }

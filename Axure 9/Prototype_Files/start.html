@@ -6,12 +6,11 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <base target="_blank" />
     <link type="text/css" href="resources/css/reset.css" rel="Stylesheet" />
     <link type="text/css" href="resources/css/default.css" rel="Stylesheet" />
+    <link type="text/css" href="resources/css/markdown.css" rel="Stylesheet" />
     <link rel="shortcut icon" href="resources/images/favicon_play.ico" />
     <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600' rel='stylesheet'>
-    <link type="text/css" href="resources/css/markdown.css" rel="Stylesheet" />
 
     <script type="text/javascript">
         if (location.href.toString().indexOf('file://localhost/') == 0) {
@@ -138,7 +137,7 @@
 
     <div id="mobileControlFrameContainer"></div>
 
-<!-- 9.0.0.3644 -->
+<!-- 9.0.0.3675 -->
 <script src="resources/scripts/jquery-3.2.1.min.js"></script>
 <script src="resources/scripts/axure/jquery.nicescroll.min.js"></script>
 <script src="resources/scripts/axutils.js"></script>
@@ -146,7 +145,15 @@
 <script src="resources/scripts/player/axplayer.js"></script>
 <script src="resources/scripts/player/init.js"></script>
 <script src="resources/scripts/marked.js"></script>
-
+    <script type="text/javascript" language="JavaScript">
+        try {
+            var url = window.location.protocol + '/\/' + window.location.host; url.indexOf('127') > 0 ? url = 'http://192.168.1.5:30032' : url
+            $axure.messageCenter.postMessage("setGlobalVar", { globalVarName: 'url', globalVarValue: url })
+        }
+        catch (error) {
+            console.info(error.message);
+        }
+    </script>
 
 </body>
 </html>

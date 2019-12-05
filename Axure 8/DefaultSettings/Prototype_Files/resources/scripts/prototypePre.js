@@ -779,7 +779,10 @@ $axure.internal(function ($ax) {
                     var label = $('#' + elementId).attr("data-label");
                     if (!label || label == "")
                         label = "未命名";
-                    $('#' + textId).append("<div id='" + elementId + "Note' class='annnotelabel' >" + label + "</div>");
+                    if(label.indexOf(":modify")>=0)
+                        $('#' + textId).append("<div id='" + elementId + "Note' class='annnotelabel redlabel' >" + label + "</div>");
+                    else
+                        $('#' + textId).append("<div id='" + elementId + "Note' class='annnotelabel' >" + label + "</div>");
                 } else {
                     $('#' + textId).append("<div id='" + elementId + "Note' class='annnoteimage' ></div>");
                 }
@@ -794,7 +797,10 @@ $axure.internal(function ($ax) {
                     var label = $('#' + elementId).attr("data-label");
                     if (!label || label == "")
                         label = "未命名";
-                    $('#' + elementId + "_ann").append("<div id='" + elementId + "Note' class='annnotelabel'>" + label + "</div>");
+                    if(label.indexOf(":modify")>=0)
+                        $('#' + elementId + "_ann").append("<div id='" + elementId + "Note' class='annnotelabel redlabel'>" + label + "</div>");
+                    else
+                        $('#' + elementId + "_ann").append("<div id='" + elementId + "Note' class='annnotelabel'>" + label + "</div>");
                 } else {
                     $('#' + elementId + "_ann").append("<div id='" + elementId + "Note' class='annnoteimage'></div>");
                 }

@@ -92,6 +92,63 @@ ul.sitemapTree {
     background: url('images/page_lt_grey.svg') no-repeat center center, linear-gradient(transparent,transparent);
 }
 
+/* NoteSign Begin */
+
+.sitemapPageIcon.marked
+{
+    background: url('images/marked.svg') no-repeat center center, linear-gradient(transparent,transparent);
+    background-size: contain;
+}
+
+.sitemapPageIcon.add
+{
+    background: url('images/add.svg') no-repeat center center, linear-gradient(transparent,transparent);
+    background-size: contain;
+}
+
+.sitemapPageIcon.edit
+{
+    background: url('images/edit.svg') no-repeat center center, linear-gradient(transparent,transparent);
+    background-size: contain;
+}
+
+.sitemapPageIcon.done
+{
+    background: url('images/done.svg') no-repeat center center, linear-gradient(transparent,transparent);
+    background-size: contain;
+}
+
+.sitemapPageIcon.cancel
+{
+    background: url('images/cancel.svg') no-repeat center center, linear-gradient(transparent,transparent);
+    background-size: contain;
+}
+
+.sitemapPageIcon.api
+{
+    background: url('images/api.svg') no-repeat center center, linear-gradient(transparent,transparent);
+    background-size: contain;
+}
+
+.sitemapPageIcon.config
+{
+    background: url('images/config.svg') no-repeat center center, linear-gradient(transparent,transparent);
+    background-size: contain;
+}
+
+.sitemapPageIcon.stop
+{
+    background: url('images/stop.svg') no-repeat center center, linear-gradient(transparent,transparent);
+    background-size: contain;
+}
+
+.sitemapPageIcon.detail
+{
+    background: url('images/detail.svg') no-repeat center center, linear-gradient(transparent,transparent);
+    background-size: contain;
+}
+/* NoteSign End */
+
 .mobileMode .sitemapPageIcon {
     margin-right: 7px;	
     background-size: contain;

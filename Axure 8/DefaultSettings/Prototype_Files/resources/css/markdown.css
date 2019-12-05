@@ -8,6 +8,9 @@
     font-weight: 400;
     margin-top: 24px;
 }
+.markdown h4{
+    color: #ED4014;
+}
 
 h1, h2, h3, h4, h5, .markdown p, .markdown dl {
     margin-bottom: 16px;

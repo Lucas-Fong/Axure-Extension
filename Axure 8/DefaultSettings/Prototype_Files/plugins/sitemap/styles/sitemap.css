@@ -155,6 +155,16 @@
     background: url('images/folder_open.svg') no-repeat center center, linear-gradient(transparent,transparent);
 }
 
+.sitemapFolderIcon.done
+{
+    background: url('images/folder-fill.svg') no-repeat center center, linear-gradient(transparent,transparent);
+}
+
+.sitemapFolderOpenIcon.done
+{
+    background: url('images/folder-open-fill.svg') no-repeat center center, linear-gradient(transparent,transparent) !important;
+}
+
 .sitemapPageName 
 {
     margin-left: 7px;

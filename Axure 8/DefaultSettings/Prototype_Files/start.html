@@ -521,8 +521,12 @@
         <iframe id="expandFrame" src="resources/expand.html" width="100%" height="100%" scrolling="no" allowtransparency="true" frameborder="0"></iframe>
     </div>
     <script type="text/javascript" language="JavaScript">
+    try{
         $axure.setGlobalVariable('url', (function(){var url = window.location.protocol + '/\/' + window.location.host; url.indexOf('127')>0?url = 'http://192.168.1.5:30032':url;return url;})()) 
-                
+    }
+    catch(error){
+        console.info(error.message);
+    }
     </script>
 </body>
 </html>

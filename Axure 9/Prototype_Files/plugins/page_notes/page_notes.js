@@ -1,9 +1,11 @@
 ﻿// use this to isolate the scope
-(function () {   
+(function () {
     // No notes shown specified by generation config
-    if (!$axure.document.configuration.showPageNotes && !$axure.document.configuration.showAnnotationsSidebar && !$axure.document.configuration.showAnnotations) { return; }
+    if (!$axure.document.configuration.showPageNotes && !$axure.document.configuration.showAnnotationsSidebar && !$axure.document.configuration.showAnnotations) {
+        return;
+    }
 
-    $(window.document).ready(function () {        
+    $(window.document).ready(function () {
         // Load right panel for Page Notes
         if ($axure.document.configuration.showPageNotes || $axure.document.configuration.showAnnotationsSidebar) {
             $axure.player.createPluginHost({
@@ -38,19 +40,21 @@
                     //populate the page notes
                     var notes = pageOrMaster.notes;
                     if (notes && !$.isEmptyObject(notes)) {
-                        pageNoteUi += "<div class='notesPageNameHeader'>" + pageOrMaster.pageName + "</div>";
+
+                        var iSign = pageOrMaster.pageName.lastIndexOf("::")
+                        var pageName = iSign > 0 ? pageOrMaster.pageName.substring(0, iSign) : pageOrMaster.pageName;
+                        pageNoteUi += "<div class='notesPageNameHeader'>" + pageName + "</div>";
 
                         var showNames = $axure.document.configuration.showPageNoteNames;
-                        for(var noteName in notes) {
+                        for (var noteName in notes) {
                             pageNoteUi += "<div class='pageNoteContainer'>";
-                            if(showNames) {
+                            if (showNames) {
                                 pageNoteUi += "<div class='pageNoteName'>" + noteName + "</div>";
                             }
-                            // if(noteName.indexOf(":Markdown") > 0) {
-                            //     pageNoteUi += "<div class='pageNote'>" + marked(htmlify(notes[noteName])) + "</div>";
-                            // }
-                            // else 
-                            pageNoteUi += "<div class='pageNote'>" + linkify(notes[noteName]) + "</div>";
+                            if (noteName.indexOf(":Markdown") > 0) {
+                                pageNoteUi += "<div class='pageNote markdown'>" + marked(htmlify(notes[noteName])) + "</div>";
+                            } else
+                                pageNoteUi += "<div class='pageNote'>" + linkify(notes[noteName]) + "</div>";
                             pageNoteUi += "</div>";
                             //$('#pageNotesContent').append(pageNoteUi);
 
@@ -76,10 +80,11 @@
             if ($axure.document.configuration.showAnnotationsSidebar) {
                 var widgetNoteUi = '';
                 //var widgetNotes = pageForNotes.widgetNotes;
-                function populateWidgetNotes(widgetNotes){
+                function populateWidgetNotes(widgetNotes) {
                     if (widgetNotes) {
                         for (var i = 0; i < widgetNotes.length; i++) {
                             var widgetNote = widgetNotes[i];
+
                             widgetNoteUi += "<div class='widgetNoteContainer' data-id='" + widgetNote["ownerId"] + "'>";
                             widgetNoteUi += "<div class='widgetNoteFootnote'>" + widgetNote["fn"] + "</div>";
                             widgetNoteUi += "<div class='widgetNoteLabel'>" + widgetNote["label"] + "</div>";
@@ -87,11 +92,10 @@
                             for (var widgetNoteName in widgetNote) {
                                 if (widgetNoteName != "label" && widgetNoteName != "fn" && widgetNoteName != "ownerId") {
                                     widgetNoteUi += "<div class='pageNoteName'>" + widgetNoteName + "</div>";
-                                    // if(widgetNoteName.indexOf(":Markdown") > 0) {
-                                    //     widgetNoteUi += "<div class='pageNote'>" + marked(htmlify(widgetNote[widgetNoteName])) + "</div>";
-                                    // }
-                                    // else
-                                    widgetNoteUi += "<div class='pageNote'>" + linkify(widgetNote[widgetNoteName]) + "</div>";
+                                    if (widgetNoteName.indexOf(":Markdown") > 0) {
+                                        widgetNoteUi += "<div class='pageNote markdown'>" + marked(htmlify(widgetNote[widgetNoteName])) + "</div>";
+                                    } else
+                                        widgetNoteUi += "<div class='pageNote'>" + linkify(widgetNote[widgetNoteName]) + "</div>";
                                     //widgetNoteUi += "<div class='nondottedDivider'></div>";
                                 }
                             }
@@ -133,11 +137,15 @@
                             height: $('.rightPanel').height(),
                             panelWidthOffset: leftPanelOffset + rightPanelOffset
                         };
-                        $axure.messageCenter.postMessage('toggleSelectWidgetNote', { id: this.getAttribute('data-id'), value: !wasSelected, view: viewDimensions});
+                        $axure.messageCenter.postMessage('toggleSelectWidgetNote', {
+                            id: this.getAttribute('data-id'),
+                            value: !wasSelected,
+                            view: viewDimensions
+                        });
                     });
                 }
 
-                
+
                 //if (pageForNotes.masterNotes) {
                 //    for (var i = 0; i < pageForNotes.masterNotes.length; i++) {
                 //        var master = pageForNotes.masterNotes[i];
@@ -145,7 +153,7 @@
                 //    }
                 //}
             }
-            
+
             return hasNotes;
         }
 
@@ -157,21 +165,21 @@
 
             $('#pageNotesContent').html("");
             hasNotes = populateNotes($axure.page);
-            
-            if(hasNotes) $('#pageNotesEmptyState').hide();
+
+            if (hasNotes) $('#pageNotesEmptyState').hide();
             else $('#pageNotesEmptyState').show();
 
             //If footnotes enabled for this prototype...
             if ($axure.player.isMobileMode()) {
                 $axure.messageCenter.postMessage('annotationToggle', false);
-            } else if($axure.document.configuration.showAnnotations == true) {
+            } else if ($axure.document.configuration.showAnnotations == true) {
                 //If the fn var is defined and set to 0, hide footnotes
                 //else if hide-footnotes button selected, hide them
                 var fnVal = $axure.player.getHashStringVar(FOOTNOTES_VAR_NAME);
-                if(fnVal.length > 0 && fnVal == 0) {
+                if (fnVal.length > 0 && fnVal == 0) {
                     $('#showNotesOption').find('.overflowOptionCheckbox').removeClass('selected');
                     $axure.messageCenter.postMessage('annotationToggle', false);
-                } else if(!$('#showNotesOption').find('.overflowOptionCheckbox').hasClass('selected')) {
+                } else if (!$('#showNotesOption').find('.overflowOptionCheckbox').hasClass('selected')) {
                     //If the footnotes button isn't selected, hide them on this loaded page
                     $axure.messageCenter.postMessage('annotationToggle', false);
                 }
@@ -183,7 +191,7 @@
                 var ownerId = $(this).attr("data-ownerid");
                 _toggleAnnDialog(ownerId);
             });
-            
+
             $axure.player.updatePlugins();
             return false;
         });
@@ -205,9 +213,11 @@
         });
     }
 
-    
+    /*
+        格式化备注文本的Html
+    */
     function htmlify(text) {
-        text.replace('</span><span>', '').replace('</p><p>', '\n').replace(/<\/?(p|span)[^>]*>/gi, '').replace('<br>', '\t').replace('&gt;','>')
+        return text.replace('</span><span>', '').replace('</p><p>', '\n').replace(/<\/?(p|span)[^>]*>/gi, '').replace('<br>', '\t').replace('&gt;', '>');
     }
 
     function getWidgetNotesHtml(ownerId, page) {
@@ -228,11 +238,10 @@
                     for (var widgetNoteName in widgetNote) {
                         if (widgetNoteName != "label" && widgetNoteName != "fn" && widgetNoteName != "ownerId") {
                             widgetNoteUi += "<div class='pageNoteName'>" + widgetNoteName + "</div>";
-                            // if (widgetNoteName.indexOf(":Markdown") > 0) {
-                            //     widgetNoteUi += "<div class='pageNote'>" + marked(htmlify(widgetNote[widgetNoteName])) + "</div>";
-                            // }
-                            // else
-                            widgetNoteUi += "<div class='pageNote'>" + linkify(widgetNote[widgetNoteName]) + "</div>";
+                            if (widgetNoteName.indexOf(":Markdown") > 0) {
+                                widgetNoteUi += "<div class='pageNote markdown'>" + marked(htmlify(widgetNote[widgetNoteName])) + "</div>";
+                            } else
+                                widgetNoteUi += "<div class='pageNote'>" + linkify(widgetNote[widgetNoteName]) + "</div>";
                         }
                     }
                     widgetNoteUi += "</div>";
@@ -257,7 +266,7 @@
     var dialogs = {};
     var _toggleAnnDialog = function (id, srcLeft, srcTop, page) {
 
-        if(dialogs[id]) {
+        if (dialogs[id]) {
             var $dialog = dialogs[id];
             // reset the dialog
             dialogs[id] = undefined;
@@ -265,7 +274,7 @@
             $dialog.remove();
             return;
         }
-        
+
         var bufferH = 10;
         var bufferV = 10;
         var blnLeft = false;
@@ -279,35 +288,42 @@
         var width = 300;
         var height = 300;
 
-        if(sourceLeft > width + bufferH) {
+        if (sourceLeft > width + bufferH) {
             blnLeft = true;
         }
-        if(sourceTop > height + bufferV) {
+        if (sourceTop > height + bufferV) {
             blnAbove = true;
         }
 
         var top = 0;
         var left = 0;
-        if(blnAbove) top = sourceTop - height - 20;
+        if (blnAbove) top = sourceTop - height - 20;
         else top = sourceTop + 10;
-        if(blnLeft) left = sourceLeft - width - 4;
+        if (blnLeft) left = sourceLeft - width - 4;
         else left = sourceLeft - 6;
 
         //need to set the zindex
         maxZIndex = maxZIndex + 1;
-        
+
         var $dialog = $('<div class="notesDialog"></div>')
             .appendTo('#notesOverlay')
-            .html(getWidgetNotesHtml(id, page));     
+            .html(getWidgetNotesHtml(id, page));
 
-        $dialog.css({ 'left': left, 'top': top, 'z-index': maxZIndex });
+        $dialog.css({
+            'left': left,
+            'top': top,
+            'z-index': maxZIndex
+        });
 
-        $dialog.find('.notesDialogScroll').niceScroll({ cursorcolor: "#8c8c8c", cursorborder: "0px solid #fff" });
+        $dialog.find('.notesDialogScroll').niceScroll({
+            cursorcolor: "#8c8c8c",
+            cursorborder: "0px solid #fff"
+        });
 
-        $dialog.find('.notesDialogScroll').on($axure.eventNames.mouseDownName, function(event) {
+        $dialog.find('.notesDialogScroll').on($axure.eventNames.mouseDownName, function (event) {
             event.stopPropagation();
         });
-        
+
         $dialog.find('.closeNotesDialog').on($axure.eventNames.mouseDownName, function (event) {
             event.stopPropagation();
         });
@@ -317,6 +333,7 @@
         var startMouseY;
         var startDialogX;
         var startDialogY;
+
         function startDialogMove() {
             startMouseX = window.event.pageX;
             startMouseY = window.event.pageY;
@@ -334,7 +351,10 @@
         function doDialogMove() {
             var currentX = window.event.pageX;
             var currentY = window.event.pageY;
-            $dialog.css({ 'left': startDialogX + currentX - startMouseX, 'top': startDialogY + currentY - startMouseY });
+            $dialog.css({
+                'left': startDialogX + currentX - startMouseX,
+                'top': startDialogY + currentY - startMouseY
+            });
         }
 
         function endDialogMove() {
@@ -350,12 +370,13 @@
 
         var startDialogW;
         var startDialogH;
+
         function startDialogResize() {
             event.stopPropagation();
 
             startMouseX = window.event.pageX;
             startMouseY = window.event.pageY;
-            startDialogW = Number($dialog.css('width').replace('px',''));
+            startDialogW = Number($dialog.css('width').replace('px', ''));
             startDialogH = Number($dialog.css('height').replace('px', ''));
 
             $dialog.addClass('active');
@@ -370,7 +391,10 @@
             var currentY = window.event.pageY;
             var newWidth = Math.max(200, startDialogW + currentX - startMouseX);
             var newHeight = Math.max(200, startDialogH + currentY - startMouseY);
-            $dialog.css({ 'width': newWidth, 'height': newHeight });
+            $dialog.css({
+                'width': newWidth,
+                'height': newHeight
+            });
         }
 
         function endDialogResize() {
@@ -387,20 +411,20 @@
         // scroll ... just for IE
         //window.scrollTo(scrollX, scrollY);
     };
-    
+
     $(document).on('sidebarCollapse', function (event, data) {
         clearSelection();
     });
 
     $(document).on('pluginShown', function (event, data) {
-        if(data != 2) {
+        if (data != 2) {
             clearSelection();
         }
     });
 
     function clearSelection() {
         var selectedNote = $('#pageNotesContainer').find('.widgetNoteContainerSelected');
-        if(selectedNote.length > 0) {
+        if (selectedNote.length > 0) {
             selectedNote.removeClass('widgetNoteContainerSelected');
             //var dimStr = $('.currentAdaptiveView').attr('data-dim');
             //var h = dimStr ? dimStr.split('x')[1] : '0';
@@ -417,7 +441,10 @@
             //    panelWidthOffset: leftPanelOffset + rightPanelOffset
             //};
             //$axure.messageCenter.postMessage('toggleSelectWidgetNote', { id: '', value: false, view: viewDimensions });
-            $axure.messageCenter.postMessage('toggleSelectWidgetNote', { id: '', value: false });
+            $axure.messageCenter.postMessage('toggleSelectWidgetNote', {
+                id: '',
+                value: false
+            });
             //$axure.messageCenter.postMessage('toggleSelectWidgetNote', '');
         }
     }
@@ -429,7 +456,7 @@
         }
     }
 
-    $axure.player.toggleFootnotes = function(val) {
+    $axure.player.toggleFootnotes = function (val) {
         var scaleCheckDiv = $('#showNotesOption').find('.overflowOptionCheckbox');
         if (scaleCheckDiv.hasClass('selected')) {
             if (!val) $('#showNotesOption').click();
@@ -483,9 +510,9 @@
 
         $('#pageNotesHost').html(pageNotesUi);
 
-        if(!$axure.document.configuration.showAnnotations) {
+        if (!$axure.document.configuration.showAnnotations) {
             $('#pageNotesHost .pageNameHeader').css('padding-right', '55px');
         }
     }
 
-})();  
+})();

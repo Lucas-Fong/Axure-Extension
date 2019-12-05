@@ -189,13 +189,16 @@ function openPreviousPage() {
         $(this)
             .children('.sitemapMinus').removeClass('sitemapMinus').addClass('sitemapPlus').end()
             .closest('li').children('ul').hide(SHOW_HIDE_ANIMATION_DURATION);
+        $(this).next(".sitemapFolderIcon").removeClass('sitemapFolderOpenIcon')
     }
 
     function expand_click(event) {
         $(this)
             .children('.sitemapPlus').removeClass('sitemapPlus').addClass('sitemapMinus').end()
             .closest('li').children('ul').show(SHOW_HIDE_ANIMATION_DURATION);
+        $(this).next(".sitemapFolderIcon").addClass('sitemapFolderOpenIcon')
     }
+
 
     function node_click(event) {
         $axure.page.navigate(this.getAttribute('nodeUrl'), true);
@@ -635,6 +638,9 @@ function openPreviousPage() {
         }
         if (isFolder) {
             returnVal += " sitemapFolderIcon";
+            if (node.pageName.indexOf(':done') > 0) {
+                returnVal += " done";
+            } 
         }
         if (node.type != "Folder" && node.type != "Flow") {
             if (node.pageName.indexOf(':marked') > 0) {

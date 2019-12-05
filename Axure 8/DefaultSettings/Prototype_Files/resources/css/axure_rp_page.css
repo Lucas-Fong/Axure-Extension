@@ -116,6 +116,11 @@ div.annnotelabel {
     box-shadow: 1px 1px 3px #aaa;
 }
 
+div.annnotelabel.redlabel
+{
+    background-color: #F22C69;
+}
+
 .annotation {
     font-size: 12px;
     padding-left: 2px;
